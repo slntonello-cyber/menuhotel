@@ -1,0 +1,376 @@
+
+<h2 class="sr-only">Cardápio de Room Service — Serviço de Quarto Expresso baseado nos pratos da linha Executive do Sabor de Família, com preços sugeridos para hotéis e custo de referência para o gerente.</h2>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap');
+
+:root {
+  --gold: #B8912A;
+  --gold-light: #D4A83A;
+  --gold-pale: #F5EDD6;
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --surface: var(--color-background-primary);
+  --raised: var(--color-background-secondary);
+  --border: var(--color-border-tertiary);
+}
+
+.menu-wrap { font-family: 'Jost', sans-serif; max-width: 680px; padding: 0 0 2rem; }
+
+.menu-header { text-align: center; padding: 2rem 1rem 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 0.5rem; }
+.hotel-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 11px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.5rem; }
+.menu-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32px; font-weight: 400; color: var(--ink); margin: 0 0 0.25rem; line-height: 1.1; }
+.menu-subtitle { font-size: 12px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 1rem; }
+.menu-rule { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 0.75rem; }
+.menu-desc { font-size: 13px; color: var(--muted); max-width: 360px; margin: 0 auto; line-height: 1.6; font-style: italic; font-family: 'Cormorant Garamond', serif; }
+
+.manager-toggle { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0.75rem 1rem; background: var(--raised); border-bottom: 0.5px solid var(--border); font-size: 12px; color: var(--muted); cursor: pointer; user-select: none; }
+.toggle-track { width: 32px; height: 18px; border-radius: 9px; background: var(--border); position: relative; transition: background 0.2s; flex-shrink: 0; border: 0.5px solid var(--color-border-secondary); }
+.toggle-track.on { background: var(--gold); border-color: var(--gold); }
+.toggle-thumb { width: 14px; height: 14px; border-radius: 50%; background: white; position: absolute; top: 2px; left: 2px; transition: left 0.2s; }
+.toggle-track.on .toggle-thumb { left: 16px; }
+.manager-note { display: none; padding: 0.6rem 1rem; background: #FAEEDA; border-bottom: 0.5px solid #E6A817; font-size: 12px; color: #854F0B; text-align: center; }
+.manager-note.show { display: block; }
+
+.section { padding: 0 1rem; margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+.section-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.section-icon i { font-size: 14px; color: var(--gold); }
+.section-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 500; color: var(--ink); letter-spacing: 0.05em; }
+.section-line { flex: 1; height: 0.5px; background: var(--border); }
+
+.dish { display: flex; align-items: flex-start; gap: 0; padding: 0.85rem 0; border-bottom: 0.5px solid var(--border); }
+.dish:last-child { border-bottom: none; }
+.dish-dots { flex: 1; min-width: 0; }
+.dish-top { display: flex; align-items: baseline; gap: 0; }
+.dish-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 16px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+.dish-line { flex: 1; border-bottom: 1px dotted var(--border); margin: 0 8px 3px; min-width: 20px; }
+.dish-price { font-family: 'Jost', sans-serif; font-size: 14px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+.dish-acc { font-size: 12px; color: var(--muted); margin-top: 2px; font-style: italic; font-family: 'Cormorant Garamond', serif; line-height: 1.4; }
+.dish-cost { display: none; font-size: 11px; color: #854F0B; background: #FAEEDA; padding: 2px 7px; border-radius: 4px; margin-top: 4px; }
+.dish-cost.show { display: inline-block; }
+.dish-badge { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); background: var(--gold-pale); padding: 1px 6px; border-radius: 3px; margin-left: 8px; vertical-align: middle; white-space: nowrap; }
+
+.section-divider { height: 1px; background: var(--border); margin: 1.5rem 1rem 0; }
+
+.menu-footer { text-align: center; padding: 1.5rem 1rem 0.5rem; }
+.footer-rule { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 0.75rem; }
+.footer-text { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+.footer-brand { font-size: 10px; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 0.5rem; }
+
+.prep-note { background: var(--raised); border: 0.5px solid var(--border); border-radius: var(--border-radius-md); padding: 0.75rem 1rem; margin: 1rem 1rem 0; display: flex; gap: 10px; align-items: flex-start; }
+.prep-note i { font-size: 16px; color: var(--gold); margin-top: 1px; flex-shrink: 0; }
+.prep-text { font-size: 12px; color: var(--muted); line-height: 1.5; }
+</style>
+
+<div class="menu-wrap">
+
+  <div class="manager-toggle" onclick="toggleManager()" role="button" aria-label="Alternar modo gerente">
+    <i class="ti ti-settings" aria-hidden="true" style="font-size:14px;"></i>
+    <span>Modo gerente (ver custo de fornecimento)</span>
+    <div class="toggle-track" id="toggle"><div class="toggle-thumb"></div></div>
+  </div>
+  <div class="manager-note" id="mgr-note">
+    Preço custo = valor Sabor de Família · Preço sugerido = markup 70% · Margem estimada por prato
+  </div>
+
+  <div class="menu-header">
+    <p class="hotel-name">Serviço de Quarto · Room Service</p>
+    <h1 class="menu-title">Jantar no Quarto</h1>
+    <p class="menu-subtitle">Disponível 24 horas</p>
+    <div class="menu-rule"></div>
+    <p class="menu-desc">Pratos preparados com ingredientes selecionados,<br>servidos diretamente no conforto do seu quarto.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon"><i class="ti ti-flame" aria-hidden="true"></i></div>
+      <span class="section-name">Carnes & Grelhados</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Strogonoff de Carne<span class="dish-badge">destaque</span></span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 72</span>
+        </div>
+        <div class="dish-acc">Arroz branco e batata palha · 400g</div>
+        <div class="dish-cost" id="c1">Custo R$42,80 · Margem R$29,20 · 68%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Bife à Rolê</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 70</span>
+        </div>
+        <div class="dish-acc">Arroz branco, mandioca ao alho e ervilhas · 400g</div>
+        <div class="dish-cost" id="c2">Custo R$41,70 · Margem R$28,30 · 68%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Baby Bife à Parmegiana</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 64</span>
+        </div>
+        <div class="dish-acc">Arroz branco e ervilhas frescas refogadas · 400g</div>
+        <div class="dish-cost" id="c3">Custo R$37,30 · Margem R$26,70 · 71%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Polpetone de Carne</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 57</span>
+        </div>
+        <div class="dish-acc">Arroz branco, feijão e escarola refogada · 400g</div>
+        <div class="dish-cost" id="c4">Custo R$32,90 · Margem R$24,10 · 73%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Filé Mignon Suíno Acebolado</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 56</span>
+        </div>
+        <div class="dish-acc">Arroz branco e banana da terra · 400g</div>
+        <div class="dish-cost" id="c5">Custo R$32,40 · Margem R$23,60 · 73%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon"><i class="ti ti-feather" aria-hidden="true"></i></div>
+      <span class="section-name">Aves</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Fricassê de Frango</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 54</span>
+        </div>
+        <div class="dish-acc">Arroz branco e batata palha · 400g</div>
+        <div class="dish-cost" id="c6">Custo R$31,80 · Margem R$22,20 · 70%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Filé de Frango à Milanesa</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 55</span>
+        </div>
+        <div class="dish-acc">Arroz branco e creme de milho · 400g</div>
+        <div class="dish-cost" id="c7">Custo R$32,40 · Margem R$22,60 · 70%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Filé de Frango à Parmegiana</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 48</span>
+        </div>
+        <div class="dish-acc">Arroz branco e batata palha · 400g</div>
+        <div class="dish-cost" id="c8">Custo R$27,40 · Margem R$20,60 · 75%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Strogonoff de Frango</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 49</span>
+        </div>
+        <div class="dish-acc">Arroz branco e batata palha · 400g</div>
+        <div class="dish-cost" id="c9">Custo R$28,50 · Margem R$20,50 · 72%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon"><i class="ti ti-ripple" aria-hidden="true"></i></div>
+      <span class="section-name">Pescados</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Filé de Peixe à Milanesa<span class="dish-badge">especial</span></span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 67</span>
+        </div>
+        <div class="dish-acc">Arroz branco e bobó de legumes · 400g</div>
+        <div class="dish-cost" id="c10">Custo R$39,50 · Margem R$27,50 · 70%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon"><i class="ti ti-bowl" aria-hidden="true"></i></div>
+      <span class="section-name">Escondidinhos</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Escondidinho de Bacalhau<span class="dish-badge">premium</span></span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 60</span>
+        </div>
+        <div class="dish-acc">Mandioca, bacalhau desfiado e requeijão cremoso · 350g</div>
+        <div class="dish-cost" id="c11">Custo R$35,10 · Margem R$24,90 · 71%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Escondidinho de Carne Seca</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 59</span>
+        </div>
+        <div class="dish-acc">Mandioca, carne seca refogada e requeijão cremoso · 350g</div>
+        <div class="dish-cost" id="c12">Custo R$34,90 · Margem R$24,10 · 69%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Escondidinho de 4 Queijos</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 57</span>
+        </div>
+        <div class="dish-acc">Mandioca, muçarela, requeijão, gorgonzola e parmesão · 350g</div>
+        <div class="dish-cost" id="c13">Custo R$32,90 · Margem R$24,10 · 73%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon"><i class="ti ti-layers-subtract" aria-hidden="true"></i></div>
+      <span class="section-name">Massas & Lasanhas</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Lasanha de Carne com Gorgonzola</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 56</span>
+        </div>
+        <div class="dish-acc">Massa artesanal, iscas de carne, molho gorgonzola e parmesão · 350g</div>
+        <div class="dish-cost" id="c14">Custo R$32,90 · Margem R$23,10 · 70%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Lasanha à Bolonhesa</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 51</span>
+        </div>
+        <div class="dish-acc">Massa artesanal, carne moída, bechamel e parmesão · 350g</div>
+        <div class="dish-cost" id="c15">Custo R$29,60 · Margem R$21,40 · 72%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Panqueca de Carne</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 53</span>
+        </div>
+        <div class="dish-acc">Recheada com carne, molho de tomate e muçarela · 350g</div>
+        <div class="dish-cost" id="c16">Custo R$30,70 · Margem R$22,30 · 73%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon"><i class="ti ti-star" aria-hidden="true"></i></div>
+      <span class="section-name">Clássicos Brasileiros</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Feijoada</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 46</span>
+        </div>
+        <div class="dish-acc">Arroz branco, farofa e couve refogada · 400g</div>
+        <div class="dish-cost" id="c17">Custo R$26,30 · Margem R$19,70 · 75%</div>
+      </div>
+    </div>
+
+    <div class="dish">
+      <div class="dish-dots">
+        <div class="dish-top">
+          <span class="dish-name">Linguiça Toscana</span>
+          <span class="dish-line"></span>
+          <span class="dish-price">R$ 51</span>
+        </div>
+        <div class="dish-acc">Arroz branco, feijão, farofa e couve refogada · 400g</div>
+        <div class="dish-cost" id="c18">Custo R$29,60 · Margem R$21,40 · 72%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prep-note">
+    <i class="ti ti-clock" aria-hidden="true"></i>
+    <span class="prep-text">Todos os pratos são preparados em até <strong>8 minutos</strong>. Para solicitar, ligue para a recepção ou escaneie o QR Code na mesa do quarto. Aceitamos lançamento na conta do quarto.</span>
+  </div>
+
+  <div class="menu-footer">
+    <div class="footer-rule"></div>
+    <p class="footer-text">Fornecido por Sabor de Família · Congelados e Refeições Prontas</p>
+    <p class="footer-brand">sabordefamilia.com.br</p>
+  </div>
+
+</div>
+
+<script>
+let mgrOn = false;
+const costs = document.querySelectorAll('.dish-cost');
+function toggleManager() {
+  mgrOn = !mgrOn;
+  document.getElementById('toggle').classList.toggle('on', mgrOn);
+  document.getElementById('mgr-note').classList.toggle('show', mgrOn);
+  costs.forEach(c => c.classList.toggle('show', mgrOn));
+}
+</script>
