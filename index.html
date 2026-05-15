@@ -1,45 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>Serviço de Quarto — Hotel Central</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
   --gold:#8B6914;--gpale:#F5EDD6;
-  --ink:var(--color-text-primary);--sub:var(--color-text-secondary);--dim:var(--color-text-tertiary);
-  --bg:var(--color-background-primary);--surf:var(--color-background-secondary);
-  --bd:var(--color-border-tertiary);--bd2:var(--color-border-secondary);
+  --ink:#1a1a1a;--sub:#555;--dim:#999;
+  --bg:#fff;--surf:#f7f7f5;
+  --bd:#e8e8e8;--bd2:#ccc;
   --ok:#16A34A;--okbg:#F0FDF4;--okdk:#166534;
   --ff:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
-body{font-family:var(--ff);background:var(--bg)}
-.cbar{position:sticky;top:0;z-index:40;background:var(--bg);border-bottom:.5px solid var(--bd);display:flex;align-items:center;gap:14px;padding:14px 16px;min-height:68px}
+@media(prefers-color-scheme:dark){
+  :root{--ink:#f0f0f0;--sub:#aaa;--dim:#666;--bg:#111;--surf:#1c1c1c;--bd:#2a2a2a;--bd2:#444}
+}
+body{font-family:var(--ff);background:var(--bg);color:var(--ink);max-width:480px;margin:0 auto}
+
+/* CART BAR */
+.cbar{position:sticky;top:0;z-index:40;background:var(--bg);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:14px;padding:14px 16px;min-height:68px}
 .cbar.live{border-bottom-color:var(--gold)}
-.cico{width:48px;height:48px;border-radius:50%;background:var(--surf);border:.5px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
-.cico i{font-size:24px;color:var(--sub)}
+.cico{width:48px;height:48px;border-radius:50%;background:var(--surf);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;font-size:24px}
 .cbadge{position:absolute;top:-4px;right:-4px;width:22px;height:22px;border-radius:50%;background:#25D366;font-size:12px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
 .cbadge.on{opacity:1}
 .cinfo{flex:1}
 .cempty{font-size:17px;color:var(--dim)}
 .ccnt{font-size:15px;color:var(--sub);display:none;margin-bottom:2px}
 .ctot{font-size:22px;font-weight:700;color:var(--ink);display:none}
-.hdr{text-align:center;padding:28px 20px 26px;border-bottom:.5px solid var(--bd)}
+
+/* HEADER */
+.hdr{text-align:center;padding:28px 20px 26px;border-bottom:1px solid var(--bd)}
 .hlogo{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:18px}
 .hname{font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-.5px;line-height:1.1}
 .htag{font-size:14px;font-weight:600;color:var(--gold);margin-top:3px}
-.hdiv{width:40px;height:3px;background:var(--gold);border-radius:2px;margin:0 auto 18px;opacity:.45}
+.hdiv{width:40px;height:3px;background:var(--gold);border-radius:2px;margin:0 auto 18px;opacity:.5}
 .hsub{font-size:17px;color:var(--sub);line-height:1.65;margin-bottom:16px}
-.havail{display:inline-flex;align-items:center;gap:8px;background:var(--okbg);border:.5px solid #BBF7D0;border-radius:999px;padding:8px 18px;font-size:15px;font-weight:600;color:var(--okdk)}
+.havail{display:inline-flex;align-items:center;gap:8px;background:var(--okbg);border:1px solid #BBF7D0;border-radius:999px;padding:8px 18px;font-size:15px;font-weight:600;color:var(--okdk)}
 .hdot{width:9px;height:9px;border-radius:50%;background:var(--ok);flex-shrink:0}
-.cat{display:flex;align-items:center;gap:12px;padding:22px 16px 14px;background:var(--surf);border-bottom:.5px solid var(--bd)}
-.catic{width:34px;height:34px;border-radius:50%;background:var(--gpale);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.catic i{font-size:18px;color:var(--gold)}
-.catnm{font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink)}
-.dish{display:flex;align-items:center;min-height:86px;padding:18px 16px;gap:14px;border-bottom:.5px solid var(--bd);background:var(--bg);cursor:pointer;-webkit-user-select:none;user-select:none;transition:background .1s}
+
+/* CATEGORY */
+.cat{display:flex;align-items:center;gap:12px;padding:20px 16px 13px;background:var(--surf);border-bottom:1px solid var(--bd)}
+.catic{width:34px;height:34px;border-radius:50%;background:var(--gpale);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.catnm{font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink)}
+
+/* DISH */
+.dish{display:flex;align-items:center;min-height:86px;padding:18px 16px;gap:14px;border-bottom:1px solid var(--bd);background:var(--bg);cursor:pointer;-webkit-user-select:none;user-select:none;transition:background .1s}
 .dish:last-of-type{border-bottom:none}
 .dish:active{background:var(--surf)}
 .dish.on{background:var(--okbg)}
 .dish.on .dnm{color:var(--okdk)}
-.chk{width:32px;height:32px;border-radius:9px;border:2px solid var(--bd2);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg);transition:all .15s}
-.dish.on .chk{background:var(--ok);border-color:var(--ok)}
-.chk i{font-size:18px;color:#fff;opacity:0;transition:opacity .15s}
-.dish.on .chk i{opacity:1}
+.chk{width:32px;height:32px;border-radius:9px;border:2px solid var(--bd2);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg);transition:all .15s;font-size:18px;color:transparent}
+.dish.on .chk{background:var(--ok);border-color:var(--ok);color:#fff}
 .dbody{flex:1;min-width:0}
 .dnm{font-size:22px;font-weight:700;color:var(--ink);line-height:1.3;transition:color .15s}
 .dacc{font-size:15px;color:var(--dim);margin-top:5px;line-height:1.45}
@@ -48,117 +62,126 @@ body{font-family:var(--ff);background:var(--bg)}
 .dprice{font-size:20px;font-weight:700;color:var(--ink)}
 .qty{display:none;align-items:center}
 .dish.on .qty{display:flex}
-.qb{width:40px;height:40px;border-radius:10px;border:.5px solid var(--bd2);background:var(--bg);font-size:24px;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-user-select:none;user-select:none}
+.qb{width:40px;height:40px;border-radius:10px;border:1px solid var(--bd2);background:var(--bg);font-size:24px;color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-user-select:none;user-select:none;line-height:1}
 .qb:active{background:var(--surf)}
 .qn{font-size:19px;font-weight:700;color:var(--ink);min-width:34px;text-align:center}
-.sep{height:12px;background:var(--surf);border-top:.5px solid var(--bd);border-bottom:.5px solid var(--bd)}
+
+.sep{height:12px;background:var(--surf);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+
+/* FORM */
 .fsec{padding:22px 16px 0}
-.fcard{border:.5px solid var(--bd);border-radius:var(--border-radius-lg);overflow:hidden}
-.fttl{display:flex;align-items:center;gap:12px;padding:18px 16px;border-bottom:.5px solid var(--bd);background:var(--surf)}
-.fttl i{font-size:24px;color:var(--gold)}
-.fttl span{font-size:18px;font-weight:700;color:var(--ink)}
+.fcard{border:1px solid var(--bd);border-radius:16px;overflow:hidden}
+.fttl{display:flex;align-items:center;gap:12px;padding:18px 16px;border-bottom:1px solid var(--bd);background:var(--surf);font-size:18px;font-weight:700;color:var(--ink)}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px 16px}
 .flbl{font-size:14px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:8px}
-.fin{width:100%;height:56px;border:.5px solid var(--bd2);border-radius:var(--border-radius-md);background:var(--bg);padding:0 16px;font-family:var(--ff);font-size:20px;font-weight:600;color:var(--ink)}
+.fin{width:100%;height:56px;border:1px solid var(--bd2);border-radius:10px;background:var(--bg);padding:0 16px;font-family:var(--ff);font-size:20px;font-weight:600;color:var(--ink);-webkit-appearance:none}
 .fin:focus{outline:none;border-color:var(--gold);border-width:2px}
 .fin::placeholder{color:var(--dim);font-weight:400;font-size:18px}
-.ssec{padding:18px 16px 0;display:none}
-.ssec.on{display:block}
-.scard{border:.5px solid var(--bd);border-radius:var(--border-radius-lg);overflow:hidden}
-.shdr{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:.5px solid var(--bd);background:var(--surf)}
-.shdr i{font-size:22px;color:var(--sub)}
-.shdr span{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sub)}
-.srow{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;font-size:17px;color:var(--ink);border-bottom:.5px solid var(--bd)}
-.srow:last-child{border-bottom:none}
-.snm{flex:1;padding-right:12px;font-weight:500;line-height:1.4}
-.svl{font-weight:700;white-space:nowrap}
 
-/* ── TOTALIZADOR FINAL ── */
-.total-final{margin:18px 16px 0;border-radius:var(--border-radius-lg);border:2px solid var(--gold);overflow:hidden;display:none}
-.total-final.on{display:block}
-.total-final-rows{background:var(--bg)}
-.tf-row{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:.5px solid var(--bd);font-size:17px;color:var(--ink)}
-.tf-row:last-child{border-bottom:none}
-.tf-nm{flex:1;padding-right:12px;font-weight:500;color:var(--sub)}
-.tf-vl{font-weight:700;color:var(--ink)}
-.total-final-sum{background:var(--gold);padding:18px 20px;display:flex;justify-content:space-between;align-items:center}
-.total-final-sum .lbl{font-size:18px;font-weight:700;color:#fff;opacity:.9}
-.total-final-sum .val{font-size:32px;font-weight:800;color:#fff;letter-spacing:-.5px}
-.total-final-qtd{font-size:13px;font-weight:600;color:rgba(255,255,255,.75);margin-top:2px}
+/* TOTALIZADOR */
+.tfinal{margin:18px 16px 0;border-radius:16px;border:2px solid var(--gold);overflow:hidden;display:none}
+.tfinal.on{display:block}
+.tfrows{background:var(--bg)}
+.tfrow{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font-size:17px;color:var(--ink);border-bottom:1px solid var(--bd)}
+.tfrow:last-child{border-bottom:none}
+.tfnm{flex:1;padding-right:12px;font-weight:500;color:var(--sub)}
+.tfvl{font-weight:700;color:var(--ink)}
+.tfsum{background:var(--gold);padding:18px 20px;display:flex;justify-content:space-between;align-items:center}
+.tflbl{font-size:18px;font-weight:700;color:#fff;opacity:.9}
+.tfqtd{font-size:13px;font-weight:600;color:rgba(255,255,255,.75);margin-top:3px}
+.tfval{font-size:34px;font-weight:800;color:#fff;letter-spacing:-.5px}
 
-.ctasec{padding:18px 16px 20px}
-.ctamsg{font-size:15px;color:var(--dim);text-align:center;margin-bottom:14px;line-height:1.55;padding:10px 14px;border-radius:var(--border-radius-md)}
-.ctamsg.warn{color:#92400E;background:#FFFBEB;border:.5px solid #FDE68A}
-.ctamsg.ok{color:var(--okdk);background:var(--okbg);border:.5px solid #BBF7D0}
-.wbtn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;height:68px;background:#25D366;color:#fff;border:none;border-radius:var(--border-radius-lg);font-family:var(--ff);font-size:21px;font-weight:800;cursor:pointer;text-decoration:none;letter-spacing:.01em}
-.wbtn:active{background:#1EA855}
-.wbtn.off{background:var(--surf);color:var(--dim);border:.5px solid var(--bd);pointer-events:none}
-.wbtn i{font-size:30px}
-.ftr{text-align:center;padding:26px 20px 36px;border-top:.5px solid var(--bd);margin-top:8px}
+/* CTA */
+.ctasec{padding:18px 16px 24px}
+.ctamsg{font-size:15px;text-align:center;margin-bottom:14px;line-height:1.55;padding:12px 16px;border-radius:12px}
+.ctamsg.warn{color:#92400E;background:#FFFBEB;border:1px solid #FDE68A}
+.ctamsg.ok{color:var(--okdk);background:var(--okbg);border:1px solid #BBF7D0}
+.wbtn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;height:68px;background:#25D366;color:#fff;border:none;border-radius:16px;font-family:var(--ff);font-size:21px;font-weight:800;cursor:pointer;text-decoration:none;-webkit-appearance:none}
+.wbtn:active{background:#1EA855;transform:scale(.98)}
+.wbtn.off{background:var(--surf);color:var(--dim);border:1px solid var(--bd);pointer-events:none}
+.wbtn svg{width:30px;height:30px;fill:#fff;flex-shrink:0}
+.wbtn.off svg{fill:var(--dim)}
+
+/* FOOTER */
+.ftr{text-align:center;padding:24px 20px 40px;border-top:1px solid var(--bd)}
 .ftrdiv{width:36px;height:3px;background:var(--gold);border-radius:2px;margin:0 auto 16px;opacity:.35}
 .ftrtxt{font-size:16px;color:var(--dim);line-height:2.1}
-.ftrbrand{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:12px;opacity:.55}
+.ftrbrand{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:12px;opacity:.6}
 </style>
+</head>
+<body>
+
+<div class="cbar" id="cbar">
+  <div class="cico">🛍️<div class="cbadge" id="cbadge"></div></div>
+  <div class="cinfo">
+    <div class="cempty" id="cempty">Selecione os pratos</div>
+    <div class="ccnt" id="ccnt"></div>
+    <div class="ctot" id="ctot"></div>
+  </div>
+</div>
+
 <div class="hdr">
   <div class="hlogo">
     <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-      <rect x="1" y="1" width="54" height="54" rx="4" stroke="#8B6914" stroke-width="1.2"/>
+      <rect x="1" y="1" width="54" height="54" rx="4" stroke="#8B6914" stroke-width="1.5"/>
       <path d="M28 9L34 22L28 15L22 22Z" fill="#8B6914"/>
-      <rect x="16" y="22" width="24" height="20" rx="1" stroke="#8B6914" stroke-width="1.4" fill="none"/>
+      <rect x="16" y="22" width="24" height="20" rx="1" stroke="#8B6914" stroke-width="1.5" fill="none"/>
       <rect x="16" y="22" width="24" height="8" fill="#8B6914" opacity=".13"/>
-      <rect x="20" y="31" width="7" height="6" rx="1" stroke="#8B6914" stroke-width="1" fill="none"/>
-      <rect x="29" y="31" width="7" height="6" rx="1" stroke="#8B6914" stroke-width="1" fill="none"/>
+      <rect x="20" y="31" width="7" height="6" rx="1" stroke="#8B6914" stroke-width="1.2" fill="none"/>
+      <rect x="29" y="31" width="7" height="6" rx="1" stroke="#8B6914" stroke-width="1.2" fill="none"/>
       <rect x="23.5" y="37" width="9" height="5" fill="#8B6914" opacity=".2" stroke="#8B6914" stroke-width="1"/>
       <text x="28" y="28" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#8B6914" font-weight="800">HC</text>
     </svg>
-    <div><div class="hname">Hotel Central</div><div class="htag">Serviço de Quarto</div></div>
+    <div>
+      <div class="hname">Hotel Central</div>
+      <div class="htag">Serviço de Quarto</div>
+    </div>
   </div>
   <div class="hdiv"></div>
   <div class="hsub">Toque no prato para selecionar.<br>Preencha os dados e envie pelo WhatsApp.</div>
   <div class="havail"><div class="hdot"></div>Disponível 24h · Entrega em até 8 min</div>
 </div>
 
-<div class="cat"><div class="catic"><i class="ti ti-flame" aria-hidden="true"></i></div><span class="catnm">Carnes &amp; Grelhados</span></div>
-<div class="dish" onclick="tgl(this)" data-n="Strogonoff de Carne" data-p="72"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Strogonoff de Carne<span class="dbdg">destaque</span></div><div class="dacc">Arroz branco e batata palha · 400g</div></div><div class="dright"><span class="dprice">R$ 72</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Bife à Rolê" data-p="70"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Bife à Rolê</div><div class="dacc">Arroz branco, mandioca ao alho e ervilhas · 400g</div></div><div class="dright"><span class="dprice">R$ 70</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Baby Bife à Parmegiana" data-p="64"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Baby Bife à Parmegiana</div><div class="dacc">Arroz branco e ervilhas frescas · 400g</div></div><div class="dright"><span class="dprice">R$ 64</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Polpetone de Carne" data-p="57"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Polpetone de Carne</div><div class="dacc">Arroz branco, feijão e escarola refogada · 400g</div></div><div class="dright"><span class="dprice">R$ 57</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Filé Mignon Suíno Acebolado" data-p="56"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Filé Mignon Suíno Acebolado</div><div class="dacc">Arroz branco e banana da terra · 400g</div></div><div class="dright"><span class="dprice">R$ 56</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="cat"><div class="catic">🔥</div><span class="catnm">Carnes &amp; Grelhados</span></div>
+<div class="dish" onclick="tgl(this)" data-n="Strogonoff de Carne" data-p="72"><div class="chk">✓</div><div class="dbody"><div class="dnm">Strogonoff de Carne<span class="dbdg">destaque</span></div><div class="dacc">Arroz branco e batata palha · 400g</div></div><div class="dright"><span class="dprice">R$ 72</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Bife à Rolê" data-p="70"><div class="chk">✓</div><div class="dbody"><div class="dnm">Bife à Rolê</div><div class="dacc">Arroz branco, mandioca ao alho e ervilhas · 400g</div></div><div class="dright"><span class="dprice">R$ 70</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Baby Bife à Parmegiana" data-p="64"><div class="chk">✓</div><div class="dbody"><div class="dnm">Baby Bife à Parmegiana</div><div class="dacc">Arroz branco e ervilhas frescas · 400g</div></div><div class="dright"><span class="dprice">R$ 64</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Polpetone de Carne" data-p="57"><div class="chk">✓</div><div class="dbody"><div class="dnm">Polpetone de Carne</div><div class="dacc">Arroz branco, feijão e escarola refogada · 400g</div></div><div class="dright"><span class="dprice">R$ 57</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Filé Mignon Suíno Acebolado" data-p="56"><div class="chk">✓</div><div class="dbody"><div class="dnm">Filé Mignon Suíno Acebolado</div><div class="dacc">Arroz branco e banana da terra · 400g</div></div><div class="dright"><span class="dprice">R$ 56</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
 
 <div class="sep"></div>
-<div class="cat"><div class="catic"><i class="ti ti-feather" aria-hidden="true"></i></div><span class="catnm">Aves</span></div>
-<div class="dish" onclick="tgl(this)" data-n="Fricassê de Frango" data-p="54"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Fricassê de Frango</div><div class="dacc">Arroz branco e batata palha · 400g</div></div><div class="dright"><span class="dprice">R$ 54</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Filé de Frango à Milanesa" data-p="55"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Filé de Frango à Milanesa</div><div class="dacc">Arroz branco e creme de milho · 400g</div></div><div class="dright"><span class="dprice">R$ 55</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Filé de Frango à Parmegiana" data-p="48"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Filé de Frango à Parmegiana</div><div class="dacc">Arroz branco e batata palha · 400g</div></div><div class="dright"><span class="dprice">R$ 48</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Strogonoff de Frango" data-p="49"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Strogonoff de Frango</div><div class="dacc">Arroz branco e batata palha · 400g</div></div><div class="dright"><span class="dprice">R$ 49</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="cat"><div class="catic">🍗</div><span class="catnm">Aves</span></div>
+<div class="dish" onclick="tgl(this)" data-n="Fricassê de Frango" data-p="54"><div class="chk">✓</div><div class="dbody"><div class="dnm">Fricassê de Frango</div><div class="dacc">Arroz branco e batata palha · 400g</div></div><div class="dright"><span class="dprice">R$ 54</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Filé de Frango à Milanesa" data-p="55"><div class="chk">✓</div><div class="dbody"><div class="dnm">Filé de Frango à Milanesa</div><div class="dacc">Arroz branco e creme de milho · 400g</div></div><div class="dright"><span class="dprice">R$ 55</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Filé de Frango à Parmegiana" data-p="48"><div class="chk">✓</div><div class="dbody"><div class="dnm">Filé de Frango à Parmegiana</div><div class="dacc">Arroz branco e batata palha · 400g</div></div><div class="dright"><span class="dprice">R$ 48</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Strogonoff de Frango" data-p="49"><div class="chk">✓</div><div class="dbody"><div class="dnm">Strogonoff de Frango</div><div class="dacc">Arroz branco e batata palha · 400g</div></div><div class="dright"><span class="dprice">R$ 49</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
 
 <div class="sep"></div>
-<div class="cat"><div class="catic"><i class="ti ti-ripple" aria-hidden="true"></i></div><span class="catnm">Pescados</span></div>
-<div class="dish" onclick="tgl(this)" data-n="Filé de Peixe à Milanesa" data-p="67"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Filé de Peixe à Milanesa<span class="dbdg">especial</span></div><div class="dacc">Arroz branco e bobó de legumes · 400g</div></div><div class="dright"><span class="dprice">R$ 67</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="cat"><div class="catic">🐟</div><span class="catnm">Pescados</span></div>
+<div class="dish" onclick="tgl(this)" data-n="Filé de Peixe à Milanesa" data-p="67"><div class="chk">✓</div><div class="dbody"><div class="dnm">Filé de Peixe à Milanesa<span class="dbdg">especial</span></div><div class="dacc">Arroz branco e bobó de legumes · 400g</div></div><div class="dright"><span class="dprice">R$ 67</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
 
 <div class="sep"></div>
-<div class="cat"><div class="catic"><i class="ti ti-bowl" aria-hidden="true"></i></div><span class="catnm">Escondidinhos</span></div>
-<div class="dish" onclick="tgl(this)" data-n="Escondidinho de Bacalhau" data-p="60"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Escondidinho de Bacalhau<span class="dbdg">premium</span></div><div class="dacc">Mandioca, bacalhau e requeijão cremoso · 350g</div></div><div class="dright"><span class="dprice">R$ 60</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Escondidinho de Carne Seca" data-p="59"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Escondidinho de Carne Seca</div><div class="dacc">Mandioca, carne seca e requeijão · 350g</div></div><div class="dright"><span class="dprice">R$ 59</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Escondidinho de 4 Queijos" data-p="57"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Escondidinho de 4 Queijos</div><div class="dacc">Mandioca, muçarela, requeijão e gorgonzola · 350g</div></div><div class="dright"><span class="dprice">R$ 57</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="cat"><div class="catic">🥘</div><span class="catnm">Escondidinhos</span></div>
+<div class="dish" onclick="tgl(this)" data-n="Escondidinho de Bacalhau" data-p="60"><div class="chk">✓</div><div class="dbody"><div class="dnm">Escondidinho de Bacalhau<span class="dbdg">premium</span></div><div class="dacc">Mandioca, bacalhau e requeijão cremoso · 350g</div></div><div class="dright"><span class="dprice">R$ 60</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Escondidinho de Carne Seca" data-p="59"><div class="chk">✓</div><div class="dbody"><div class="dnm">Escondidinho de Carne Seca</div><div class="dacc">Mandioca, carne seca e requeijão · 350g</div></div><div class="dright"><span class="dprice">R$ 59</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Escondidinho de 4 Queijos" data-p="57"><div class="chk">✓</div><div class="dbody"><div class="dnm">Escondidinho de 4 Queijos</div><div class="dacc">Mandioca, muçarela, requeijão e gorgonzola · 350g</div></div><div class="dright"><span class="dprice">R$ 57</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
 
 <div class="sep"></div>
-<div class="cat"><div class="catic"><i class="ti ti-layers-subtract" aria-hidden="true"></i></div><span class="catnm">Massas &amp; Lasanhas</span></div>
-<div class="dish" onclick="tgl(this)" data-n="Lasanha Carne com Gorgonzola" data-p="56"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Lasanha Carne com Gorgonzola</div><div class="dacc">Massa artesanal, carne e parmesão · 350g</div></div><div class="dright"><span class="dprice">R$ 56</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Lasanha à Bolonhesa" data-p="51"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Lasanha à Bolonhesa</div><div class="dacc">Carne moída, bechamel e parmesão · 350g</div></div><div class="dright"><span class="dprice">R$ 51</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Panqueca de Carne" data-p="53"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Panqueca de Carne</div><div class="dacc">Carne, molho de tomate e muçarela · 350g</div></div><div class="dright"><span class="dprice">R$ 53</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="cat"><div class="catic">🍝</div><span class="catnm">Massas &amp; Lasanhas</span></div>
+<div class="dish" onclick="tgl(this)" data-n="Lasanha Carne com Gorgonzola" data-p="56"><div class="chk">✓</div><div class="dbody"><div class="dnm">Lasanha Carne com Gorgonzola</div><div class="dacc">Massa artesanal, carne e parmesão · 350g</div></div><div class="dright"><span class="dprice">R$ 56</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Lasanha à Bolonhesa" data-p="51"><div class="chk">✓</div><div class="dbody"><div class="dnm">Lasanha à Bolonhesa</div><div class="dacc">Carne moída, bechamel e parmesão · 350g</div></div><div class="dright"><span class="dprice">R$ 51</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Panqueca de Carne" data-p="53"><div class="chk">✓</div><div class="dbody"><div class="dnm">Panqueca de Carne</div><div class="dacc">Carne, molho de tomate e muçarela · 350g</div></div><div class="dright"><span class="dprice">R$ 53</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
 
 <div class="sep"></div>
-<div class="cat"><div class="catic"><i class="ti ti-star" aria-hidden="true"></i></div><span class="catnm">Clássicos Brasileiros</span></div>
-<div class="dish" onclick="tgl(this)" data-n="Feijoada" data-p="46"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Feijoada</div><div class="dacc">Arroz branco, farofa e couve refogada · 400g</div></div><div class="dright"><span class="dprice">R$ 46</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
-<div class="dish" onclick="tgl(this)" data-n="Linguiça Toscana" data-p="51"><div class="chk"><i class="ti ti-check" aria-hidden="true"></i></div><div class="dbody"><div class="dnm">Linguiça Toscana</div><div class="dacc">Arroz, feijão, farofa e couve refogada · 400g</div></div><div class="dright"><span class="dprice">R$ 51</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="cat"><div class="catic">⭐</div><span class="catnm">Clássicos Brasileiros</span></div>
+<div class="dish" onclick="tgl(this)" data-n="Feijoada" data-p="46"><div class="chk">✓</div><div class="dbody"><div class="dnm">Feijoada</div><div class="dacc">Arroz branco, farofa e couve refogada · 400g</div></div><div class="dright"><span class="dprice">R$ 46</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
+<div class="dish" onclick="tgl(this)" data-n="Linguiça Toscana" data-p="51"><div class="chk">✓</div><div class="dbody"><div class="dnm">Linguiça Toscana</div><div class="dacc">Arroz, feijão, farofa e couve refogada · 400g</div></div><div class="dright"><span class="dprice">R$ 51</span><div class="qty" onclick="event.stopPropagation()"><div class="qb" onclick="adj(this,-1)">−</div><span class="qn">1</span><div class="qb" onclick="adj(this,1)">+</div></div></div></div>
 
 <div class="sep"></div>
 
-<!-- FORMULÁRIO -->
 <div class="fsec">
   <div class="fcard">
-    <div class="fttl"><i class="ti ti-user-circle" aria-hidden="true"></i><span>Seus dados</span></div>
+    <div class="fttl">👤 &nbsp;Seus dados</div>
     <div class="fgrid">
       <div><label class="flbl" for="fq">Nº do quarto</label><input class="fin" type="text" id="fq" placeholder="214" oninput="upd()" maxlength="6" inputmode="numeric"></div>
       <div><label class="flbl" for="fn">Sobrenome</label><input class="fin" type="text" id="fn" placeholder="Silva" oninput="upd()" maxlength="30" autocomplete="family-name"></div>
@@ -166,23 +189,21 @@ body{font-family:var(--ff);background:var(--bg)}
   </div>
 </div>
 
-<!-- TOTALIZADOR FINAL -->
-<div class="total-final" id="tfinal">
-  <div class="total-final-rows" id="tfrows"></div>
-  <div class="total-final-sum">
+<div class="tfinal" id="tfinal">
+  <div class="tfrows" id="tfrows"></div>
+  <div class="tfsum">
     <div>
-      <div class="lbl">Total do pedido</div>
-      <div class="total-final-qtd" id="tfqtd"></div>
+      <div class="tflbl">Total do pedido</div>
+      <div class="tfqtd" id="tfqtd"></div>
     </div>
-    <div class="val" id="tfval">R$ 0</div>
+    <div class="tfval" id="tfval">R$ 0</div>
   </div>
 </div>
 
-<!-- CTA -->
 <div class="ctasec">
   <p class="ctamsg warn" id="cmsg">Selecione os pratos e preencha quarto e sobrenome</p>
-  <a class="wbtn off" id="wbtn" href="#" target="_blank">
-    <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+  <a class="wbtn off" id="wbtn" href="#">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     Enviar pelo WhatsApp
   </a>
 </div>
@@ -194,46 +215,104 @@ body{font-family:var(--ff);background:var(--bg)}
 </div>
 
 <script>
-const WPP='5516981294340';
-function tgl(el){el.classList.toggle('on');upd()}
-function adj(b,d){const n=b.parentElement.querySelector('.qn');n.textContent=Math.min(9,Math.max(1,+n.textContent+d));upd()}
-function list(){return[...document.querySelectorAll('.dish.on')].map(d=>({n:d.dataset.n,p:+d.dataset.p,q:+d.querySelector('.qn').textContent}))}
-function upd(){
-  const L=list(),q=document.getElementById('fq').value.trim(),n=document.getElementById('fn').value.trim();
-  const tot=L.reduce((s,i)=>s+i.p*i.q,0),cnt=L.reduce((s,i)=>s+i.q,0);
+const WPP = '5516981294340';
 
-  const bar=document.getElementById('cbar'),badge=document.getElementById('cbadge');
-  const empty=document.getElementById('cempty'),ccnt=document.getElementById('ccnt'),ctot=document.getElementById('ctot');
-  const tfinal=document.getElementById('tfinal'),tfrows=document.getElementById('tfrows');
-  const tfval=document.getElementById('tfval'),tfqtd=document.getElementById('tfqtd');
+function tgl(el) {
+  el.classList.toggle('on');
+  upd();
+}
 
-  if(L.length){
-    bar.classList.add('live');badge.textContent=cnt;badge.classList.add('on');
-    empty.style.display='none';
-    ccnt.style.display='block';ccnt.textContent=cnt+(cnt===1?' prato':' pratos')+' selecionado'+(cnt===1?'':'s');
-    ctot.style.display='block';ctot.textContent='R$ '+tot;
+function adj(b, d) {
+  const n = b.parentElement.querySelector('.qn');
+  n.textContent = Math.min(9, Math.max(1, +n.textContent + d));
+  upd();
+}
+
+function list() {
+  return [...document.querySelectorAll('.dish.on')].map(d => ({
+    n: d.dataset.n,
+    p: +d.dataset.p,
+    q: +d.querySelector('.qn').textContent
+  }));
+}
+
+function upd() {
+  const L = list();
+  const q = document.getElementById('fq').value.trim();
+  const n = document.getElementById('fn').value.trim();
+  const tot = L.reduce((s, i) => s + i.p * i.q, 0);
+  const cnt = L.reduce((s, i) => s + i.q, 0);
+
+  const bar    = document.getElementById('cbar');
+  const badge  = document.getElementById('cbadge');
+  const empty  = document.getElementById('cempty');
+  const ccnt   = document.getElementById('ccnt');
+  const ctot   = document.getElementById('ctot');
+  const tfinal = document.getElementById('tfinal');
+  const tfrows = document.getElementById('tfrows');
+  const tfval  = document.getElementById('tfval');
+  const tfqtd  = document.getElementById('tfqtd');
+  const btn    = document.getElementById('wbtn');
+  const msg    = document.getElementById('cmsg');
+
+  if (L.length) {
+    bar.classList.add('live');
+    badge.textContent = cnt;
+    badge.classList.add('on');
+    empty.style.display = 'none';
+    ccnt.style.display = 'block';
+    ccnt.textContent = cnt + (cnt === 1 ? ' prato selecionado' : ' pratos selecionados');
+    ctot.style.display = 'block';
+    ctot.textContent = 'R$ ' + tot;
     tfinal.classList.add('on');
-    tfrows.innerHTML=L.map(i=>`<div class="tf-row"><span class="tf-nm">${i.q>1?i.q+'× ':''}${i.n}</span><span class="tf-vl">R$ ${i.p*i.q}</span></div>`).join('');
-    tfval.textContent='R$ '+tot;
-    tfqtd.textContent=cnt+(cnt===1?' item':' itens');
-  }else{
-    bar.classList.remove('live');badge.classList.remove('on');
-    empty.style.display='';ccnt.style.display='none';ctot.style.display='none';
+    tfrows.innerHTML = L.map(i =>
+      '<div class="tfrow"><span class="tfnm">' +
+      (i.q > 1 ? i.q + '× ' : '') + i.n +
+      '</span><span class="tfvl">R$ ' + (i.p * i.q) + '</span></div>'
+    ).join('');
+    tfval.textContent = 'R$ ' + tot;
+    tfqtd.textContent = cnt + (cnt === 1 ? ' item' : ' itens');
+  } else {
+    bar.classList.remove('live');
+    badge.classList.remove('on');
+    empty.style.display = '';
+    ccnt.style.display = 'none';
+    ctot.style.display = 'none';
     tfinal.classList.remove('on');
   }
 
-  const ok=L.length&&q&&n;
-  const btn=document.getElementById('wbtn'),msg=document.getElementById('cmsg');
-  if(ok){
+  const ok = L.length > 0 && q !== '' && n !== '';
+
+  if (ok) {
+    let texto = '🏨 *Hotel Central — Pedido Room Service*\n\n';
+    texto += '🔑 Quarto: *' + q + '*\n';
+    texto += '👤 Hóspede: *' + n + '*\n\n';
+    texto += '🍽️ *Pedido:*\n';
+    L.forEach(i => {
+      texto += '  • ' + (i.q > 1 ? i.q + 'x ' : '') + i.n + ' — R$ ' + (i.p * i.q) + '\n';
+    });
+    texto += '\n💰 *Total: R$ ' + tot + '*\n\n';
+    texto += '⏱️ Aguardo a entrega no quarto. Obrigado!';
+
+    const link = 'https://wa.me/' + WPP + '?text=' + encodeURIComponent(texto);
+    btn.href = link;
     btn.classList.remove('off');
-    btn.href='https://wa.me/'+WPP+'?text='+encodeURIComponent('🏨 *Hotel Central — Pedido Room Service*\n\n🔑 Quarto: *'+q+'*\n👤 Hóspede: *'+n+'*\n\n🍽️ *Pedido:*\n'+L.map(i=>'  • '+(i.q>1?i.q+'x ':'')+i.n+' — R$ '+i.p*i.q).join('\n')+'\n\n💰 *Total: R$ '+tot+'*\n\n⏱️ Aguardo entrega. Obrigado!');
-    msg.textContent='Tudo certo! Clique para enviar o pedido';msg.className='ctamsg ok';
-  }else{
-    btn.classList.add('off');btn.href='#';msg.className='ctamsg warn';
-    if(!L.length)msg.textContent='Selecione pelo menos um prato';
-    else if(!q&&!n)msg.textContent='Preencha o número do quarto e o sobrenome';
-    else if(!q)msg.textContent='Informe o número do seu quarto';
-    else msg.textContent='Informe seu sobrenome para confirmar';
+    msg.textContent = 'Tudo certo! Toque para enviar o pedido';
+    msg.className = 'ctamsg ok';
+  } else {
+    btn.href = '#';
+    btn.classList.add('off');
+    msg.className = 'ctamsg warn';
+    if (!L.length)
+      msg.textContent = 'Selecione pelo menos um prato';
+    else if (!q && !n)
+      msg.textContent = 'Preencha o número do quarto e o sobrenome';
+    else if (!q)
+      msg.textContent = 'Informe o número do seu quarto';
+    else
+      msg.textContent = 'Informe seu sobrenome para confirmar';
   }
 }
 </script>
+</body>
+</html>
